@@ -1,13 +1,13 @@
 module.exports = {
   compilerOptions: {
-    target: "es6",
-    lib: ["dom", "dom.iterable", "esnext"],
+    target: 'es6',
+    lib: ['dom', 'dom.iterable', 'esnext'],
     esModuleInterop: true,
-    module: "esnext",
-    moduleResolution: "node",
-    jsx: "react",
-    rootDir: "src",
-    baseUrl: "src",
+    module: 'esnext',
+    moduleResolution: 'node',
+    jsx: 'react',
+    rootDir: 'src',
+    baseUrl: 'src',
     allowJs: true,
     skipLibCheck: true,
     allowSyntheticDefaultImports: true,
@@ -16,5 +16,5 @@ module.exports = {
     resolveJsonModule: true,
     noEmit: true,
   },
-  include: ["src"],
+  include: ['src'],
 };
