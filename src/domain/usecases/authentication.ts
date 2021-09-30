@@ -1,6 +1,6 @@
 import { AccountModel } from './../models/account-model';
 
-type AuthenticationProps = {
+export type AuthenticationProps = {
   email: string;
   password: string;
 };
