@@ -11,8 +11,6 @@ const makeSut = (url: string = internet.url()): SutTypes => {
   const httpPostClientSpy = new HttpPostClientSpy();
   const sut = new RemoteAuthentication(url, httpPostClientSpy);
 
-  console.log(url);
-
   return {
     sut,
     httpPostClientSpy,
