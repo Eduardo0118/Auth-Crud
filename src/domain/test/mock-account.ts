@@ -1,7 +1,7 @@
 import { internet, random } from 'faker';
 
-import { AccountModel } from './../models/account-model';
-import { AuthenticationProps } from '@/domain/usecases/authentication';
+import { AccountModel } from '@/domain/models';
+import { AuthenticationProps } from '@/domain/usecases';
 
 export const mockAuthentication = (): AuthenticationProps => ({
   email: internet.email(),
