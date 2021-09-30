@@ -1,7 +1,7 @@
 import { internet, random } from 'faker';
 
 import { AxiosHttpClient } from './axios-http-client';
-import { HttpPostParams } from './../../../data/protocols/http/http-post-client';
+import { HttpPostParams } from '@/data/protocols/http';
 import axios from 'axios';
 
 jest.mock('axios');
