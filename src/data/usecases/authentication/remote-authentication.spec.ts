@@ -1,3 +1,8 @@
+import {
+  mockAccountModel,
+  mockAuthentication,
+} from '@/domain/test/mock-account';
+
 import { AccountModel } from '@/domain/models/account-model';
 import { AuthenticationProps } from '@/domain/usecases/authentication';
 import { HttpPostClientSpy } from '@/data/test/mock-http-client';
@@ -6,7 +11,6 @@ import { InvalidCredentialsError } from '@/domain/errors/invalid-credentials-err
 import { RemoteAuthentication } from './remote-authentication';
 import { UnexpectedError } from '@/domain/errors/unexpected-error';
 import { internet } from 'faker';
-import { mockAuthentication } from '@/domain/test/mock-authentication';
 
 type SutTypes = {
   sut: RemoteAuthentication;
@@ -65,6 +69,17 @@ describe('RemoteAuthentication', () => {
     expect(promise).rejects.toThrow(new UnexpectedError());
   });
 
+  test('should throw UnexpectedError if HttpPostClient returns 404', async () => {
+    const { httpPostClientSpy, sut } = makeSut();
+    const promise = sut.auth(mockAuthentication());
+
+    httpPostClientSpy.response = {
+      statusCode: HttpStatusCode.notFound,
+    };
+
+    expect(promise).rejects.toThrow(new UnexpectedError());
+  });
+
   test('should throw UnexpectedError if HttpPostClient returns 500', async () => {
     const { httpPostClientSpy, sut } = makeSut();
     const promise = sut.auth(mockAuthentication());
@@ -76,14 +91,16 @@ describe('RemoteAuthentication', () => {
     expect(promise).rejects.toThrow(new UnexpectedError());
   });
 
-  test('should throw UnexpectedError if HttpPostClient returns 500', async () => {
+  test('should return an AccountModel if HttpPostClient returns 200', async () => {
     const { httpPostClientSpy, sut } = makeSut();
-    const promise = sut.auth(mockAuthentication());
+    const httpResult = mockAccountModel();
 
     httpPostClientSpy.response = {
-      statusCode: HttpStatusCode.notFound,
+      statusCode: HttpStatusCode.ok,
+      body: httpResult,
     };
 
-    expect(promise).rejects.toThrow(new UnexpectedError());
+    const account = await sut.auth(mockAuthentication());
+    expect(account).toEqual(httpResult);
   });
 });
