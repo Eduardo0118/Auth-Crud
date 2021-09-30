@@ -48,7 +48,7 @@ describe('RemoteAuthentication', () => {
     const promise = sut.auth(mockAuthentication());
 
     httpPostClientSpy.response = {
-      statusCode: HttpStatusCode.unathorized,
+      statusCode: HttpStatusCode.unauthorized,
     };
 
     expect(promise).rejects.toThrow(new InvalidCredentialsError());
