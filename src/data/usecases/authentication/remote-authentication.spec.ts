@@ -1,3 +1,5 @@
+import { AccountModel } from '@/domain/models/account-model';
+import { AuthenticationProps } from '@/domain/usecases/authentication';
 import { HttpPostClientSpy } from '@/data/test/mock-http-client';
 import { HttpStatusCode } from '@/data/protocols/http/http-response';
 import { InvalidCredentialsError } from '@/domain/errors/invalid-credentials-error';
@@ -8,11 +10,14 @@ import { mockAuthentication } from '@/domain/test/mock-authentication';
 
 type SutTypes = {
   sut: RemoteAuthentication;
-  httpPostClientSpy: HttpPostClientSpy;
+  httpPostClientSpy: HttpPostClientSpy<AuthenticationProps, AccountModel>;
 };
 
 const makeSut = (url: string = internet.url()): SutTypes => {
-  const httpPostClientSpy = new HttpPostClientSpy();
+  const httpPostClientSpy = new HttpPostClientSpy<
+    AuthenticationProps,
+    AccountModel
+  >();
   const sut = new RemoteAuthentication(url, httpPostClientSpy);
 
   return {
