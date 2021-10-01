@@ -1,16 +1,14 @@
-import React from 'react';
+import React, { memo } from 'react';
 import styles from './styles.scss';
 
 import Spinner from '@/presentation/components/spinner';
-import Logo from '@/presentation/components/Logo';
+import LoginHeader from '@/presentation/components/login-header';
+import Footer from '@/presentation/components/footer';
 
 const Login: React.FC = () => {
   return (
     <div className={styles.login}>
-      <header className={styles.header}>
-        <Logo />
-        <h1 className={styles.title}>Auth Login - Project</h1>
-      </header>
+      <LoginHeader />
       <form className={styles.form}>
         <h2 className={styles.formTitle}>Login</h2>
         <div className={styles.inputWrapper}>
@@ -34,9 +32,9 @@ const Login: React.FC = () => {
           <span className={styles.errorMessage}>Erro</span>
         </div>
       </form>
-      <footer className={styles.footer} />
+      <Footer />
     </div>
   );
 };
 
-export default Login;
+export default memo(Login);
