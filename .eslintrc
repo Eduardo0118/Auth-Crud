@@ -25,6 +25,7 @@
     "no-undef": "off",
     "@typescript-eslint/ban-types": "off",
     "@typescript-eslint/no-explicit-any": "off",
+    "@typescript-eslint/no-var-requires": "off",
     "react/jsx-uses-react": "error",
     "react/jsx-uses-vars": "error"
   }
