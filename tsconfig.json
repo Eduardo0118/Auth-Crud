@@ -9,11 +9,7 @@
     "rootDir": "src",
     "baseUrl": ".",
     "allowJs": true,
-    "skipLibCheck": true,
-    "allowSyntheticDefaultImports": true,
-    "forceConsistentCasingInFileNames": true,
     "resolveJsonModule": true,
-    "noEmit": true,
     "paths": {
       "@/*": ["src/*"]
     }
