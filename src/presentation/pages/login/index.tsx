@@ -1,10 +1,10 @@
 import React, { memo } from 'react';
 import styles from './styles.scss';
 
-import Spinner from '@/presentation/components/spinner';
 import LoginHeader from '@/presentation/components/login-header';
 import Footer from '@/presentation/components/footer';
 import Input from '@/presentation/components/input';
+import FormStatus from '@/presentation/components/form-status';
 
 const Login: React.FC = () => {
   return (
@@ -28,10 +28,8 @@ const Login: React.FC = () => {
           Entrar
         </button>
         <span className={styles.formLink}>Criar conta</span>
-        <div className={styles.errorWrapper}>
-          <Spinner className={styles.spinner} />
-          <span className={styles.errorMessage}>Erro</span>
-        </div>
+
+        <FormStatus />
       </form>
       <Footer />
     </div>
