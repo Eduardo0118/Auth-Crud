@@ -1,10 +1,12 @@
 import React, { memo } from 'react';
 import styles from './styles.scss';
 
-import LoginHeader from '@/presentation/components/login-header';
-import Footer from '@/presentation/components/footer';
-import Input from '@/presentation/components/input';
-import FormStatus from '@/presentation/components/form-status';
+import {
+  LoginHeader,
+  Footer,
+  Input,
+  FormStatus,
+} from '@/presentation/components';
 
 const Login: React.FC = () => {
   return (
