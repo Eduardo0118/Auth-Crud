@@ -1,6 +1,6 @@
 import React from 'react';
 import { render } from 'react-dom';
 
-import { Login } from '@/presentation/pages';
+import { Router } from '@/presentation/components';
 
-render(<Login />, document.getElementById('main'));
+render(<Router />, document.getElementById('main'));
