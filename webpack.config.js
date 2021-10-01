@@ -4,7 +4,7 @@ const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 module.exports = {
   mode: 'development',
   entry: './src/main/index.tsx',
-  outPut: {
+  output: {
     path: path.join(__dirname, 'public/js'),
     publicPath: '/public/js',
     filename: 'bundle.js',
@@ -26,9 +26,6 @@ module.exports = {
         test: /\.scss$/,
         use: [
           {
-            loader: 'sass-loader',
-          },
-          {
             loader: 'style-loader',
           },
           {
@@ -36,6 +33,9 @@ module.exports = {
             options: {
               modules: true,
             },
+          },
+          {
+            loader: 'sass-loader',
           },
         ],
       },
