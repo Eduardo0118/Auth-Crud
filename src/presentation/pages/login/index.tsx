@@ -1,4 +1,4 @@
-import React, { memo } from 'react';
+import React from 'react';
 import styles from './styles.scss';
 
 import {
@@ -38,4 +38,4 @@ const Login: React.FC = () => {
   );
 };
 
-export default memo(Login);
+export default Login;
