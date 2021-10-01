@@ -8,9 +8,13 @@ const Input: React.FC<InputProps> = ({
   withIcon = false,
   ...props
 }: InputProps) => {
+  const enableInput = (event: React.FocusEvent<HTMLInputElement>) => {
+    event.target.readOnly = false;
+  };
+
   return (
     <div className={styles.inputWrapper}>
-      <input {...props} />
+      <input {...props} readOnly onFocus={enableInput} />
       {!!withIcon && <span className={styles.status}>&#128308;</span>}
     </div>
   );
