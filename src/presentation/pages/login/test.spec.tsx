@@ -1,6 +1,5 @@
 import React from 'react';
 import { render } from '@testing-library/react';
-
 import Login from '.';
 
 describe('Login component', () => {
@@ -12,5 +11,13 @@ describe('Login component', () => {
 
     const submitButton = getByTestId(/submit/i) as HTMLButtonElement;
     expect(submitButton.disabled).toBe(true);
+
+    const emailStatus = getByTestId(/email-status/i);
+    expect(emailStatus.title).toBe('Campo obrigatório');
+    expect(emailStatus.textContent).toBe('🔴');
+
+    const passwordStatus = getByTestId(/password-status/i);
+    expect(passwordStatus.title).toBe('Campo obrigatório');
+    expect(passwordStatus.textContent).toBe('🔴');
   });
 });
