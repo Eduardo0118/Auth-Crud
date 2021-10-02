@@ -8,21 +8,21 @@ import {
   FormStatus,
 } from '@/presentation/components';
 
-type StateProps = {
-  isLoading: boolean;
-  errorMessage: string;
-};
-
 const Login: React.FC = () => {
-  const [state] = useState<StateProps>({
+  const [state] = useState({
     isLoading: false,
-    errorMessage: '',
+  });
+
+  const [errorState] = useState({
+    email: 'Campo obrigatório',
+    password: 'Campo obrigatório',
+    main: '',
   });
 
   return (
     <div className={styles.login}>
       <LoginHeader />
-      <Context.Provider value={state}>
+      <Context.Provider value={{ state, errorState }}>
         <form className={styles.form}>
           <h2 className={styles.formTitle}>Login</h2>
           <Input
@@ -38,8 +38,8 @@ const Login: React.FC = () => {
             withIcon
           />
           <button
-            disabled
             data-testid="submit"
+            disabled
             className={styles.formButton}
             type="submit"
           >
