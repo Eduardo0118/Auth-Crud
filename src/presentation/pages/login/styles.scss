@@ -25,6 +25,16 @@
 
     .formButton {
       margin-top: 16px;
+
+      &:disabled {
+        background-color: $disabledBackground;
+        cursor: default;
+        color: $disabledColor;
+
+        &:hover {
+          opacity: 1;
+        }
+      }
     }
 
     .formLink {
