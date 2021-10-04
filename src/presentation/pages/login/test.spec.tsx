@@ -1,5 +1,5 @@
 import React from 'react';
-import { internet } from 'faker';
+import { internet, random } from 'faker';
 import {
   render,
   RenderResult,
@@ -17,6 +17,7 @@ type SutTypes = {
 
 const makeSut = (): SutTypes => {
   const validationSpy = new ValidationSpy();
+  validationSpy.errorMessage = random.words();
   const sut = render(<Login validation={validationSpy} />);
 
   return {
@@ -29,7 +30,7 @@ describe('Login component', () => {
   afterEach(cleanup);
 
   test('Should start with initial state', () => {
-    const { sut } = makeSut();
+    const { sut, validationSpy } = makeSut();
 
     const errorWrapper = sut.getByTestId(/error-wrapper/i);
     expect(errorWrapper.childElementCount).toBe(0);
@@ -38,7 +39,7 @@ describe('Login component', () => {
     expect(submitButton.disabled).toBe(true);
 
     const emailStatus = sut.getByTestId(/email-status/i);
-    expect(emailStatus.title).toBe('Campo obrigatório');
+    expect(emailStatus.title).toBe(validationSpy.errorMessage);
     expect(emailStatus.textContent).toBe('🔴');
 
     const passwordStatus = sut.getByTestId(/password-status/i);
@@ -64,5 +65,15 @@ describe('Login component', () => {
     fireEvent.input(passwordInput, { target: { value: password } });
     expect(validationSpy.fildName).toBe('password');
     expect(validationSpy.fildValue).toBe(password);
+  });
+
+  test('Should show email error if Validation fails', () => {
+    const { sut, validationSpy } = makeSut();
+    const emailStatus = sut.getByTestId('email-status');
+    const emailInput = sut.getByTestId('email');
+
+    fireEvent.input(emailInput, { target: { value: internet.email() } });
+    expect(emailStatus.title).toBe(validationSpy.errorMessage);
+    expect(emailStatus.textContent).toBe('🔴');
   });
 });
