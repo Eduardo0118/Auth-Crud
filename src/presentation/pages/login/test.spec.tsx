@@ -7,11 +7,12 @@ import {
   cleanup,
 } from '@testing-library/react';
 
-import { ValidationStub } from '@/presentation/test';
+import { AuthenticationSpy, ValidationStub } from '@/presentation/test';
 import Login from '.';
 
 type SutTypes = {
   sut: RenderResult;
+  authenticationSpy: AuthenticationSpy;
 };
 
 type SutParams = {
@@ -20,13 +21,16 @@ type SutParams = {
 
 const makeSut = (params?: SutParams): SutTypes => {
   const validationStub = new ValidationStub();
-
+  const authenticationSpy = new AuthenticationSpy();
   validationStub.errorMessage = params?.validationError;
 
-  const sut = render(<Login validation={validationStub} />);
+  const sut = render(
+    <Login validation={validationStub} authentication={authenticationSpy} />,
+  );
 
   return {
     sut,
+    authenticationSpy,
   };
 };
 
@@ -121,5 +125,26 @@ describe('Login component', () => {
 
     const spinner = sut.getByTestId('spinner');
     expect(spinner).toBeTruthy();
+  });
+
+  test('Should call Authentication with correct values', () => {
+    const { sut, authenticationSpy } = makeSut();
+
+    const email = internet.email();
+    const password = internet.password();
+
+    const emailInput = sut.getByTestId('email');
+    const passwordInput = sut.getByTestId('password');
+
+    fireEvent.input(emailInput, { target: { value: email } });
+    fireEvent.input(passwordInput, { target: { value: password } });
+
+    const submitButton = sut.getByTestId(/submit/i) as HTMLButtonElement;
+    fireEvent.click(submitButton);
+
+    expect(authenticationSpy.params).toEqual({
+      email,
+      password,
+    });
   });
 });

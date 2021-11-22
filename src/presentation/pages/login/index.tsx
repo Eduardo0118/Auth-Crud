@@ -8,12 +8,17 @@ import {
   FormStatus,
 } from '@/presentation/components';
 import { Validation } from '@/presentation/protocols/validation';
+import { Authentication } from '@/domain/usecases';
 
 type LoginProps = {
   validation: Validation;
+  authentication: Authentication;
 };
 
-const Login: React.FC<LoginProps> = ({ validation }: LoginProps) => {
+const Login: React.FC<LoginProps> = ({
+  validation,
+  authentication,
+}: LoginProps) => {
   const [state, setState] = useState({
     isLoading: false,
     email: '',
@@ -23,10 +28,13 @@ const Login: React.FC<LoginProps> = ({ validation }: LoginProps) => {
     mainError: '',
   });
 
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>): void => {
+  const handleSubmit = async (
+    event: React.FormEvent<HTMLFormElement>,
+  ): Promise<void> => {
     event.preventDefault();
 
     setState({ ...state, isLoading: true });
+    await authentication.auth({ email: state.email, password: state.password });
   };
 
   useEffect(() => {
