@@ -24,7 +24,7 @@ const Login: React.FC<LoginProps> = ({
     email: '',
     password: '',
     emailError: '',
-    passwordError: 'Campo obrigatório',
+    passwordError: '',
     mainError: '',
   });
 
@@ -34,7 +34,7 @@ const Login: React.FC<LoginProps> = ({
     event.preventDefault();
 
     try {
-      if (state.isLoading) return;
+      if (state.isLoading || state.emailError || state.passwordError) return;
 
       setState({ ...state, isLoading: true });
       await authentication.auth({
@@ -58,7 +58,11 @@ const Login: React.FC<LoginProps> = ({
     <div className={styles.login}>
       <LoginHeader />
       <Context.Provider value={{ state, setState }}>
-        <form className={styles.form} onSubmit={handleSubmit}>
+        <form
+          data-testid="form"
+          className={styles.form}
+          onSubmit={handleSubmit}
+        >
           <h2 className={styles.formTitle}>Login</h2>
           <Input
             type="email"
